@@ -13,7 +13,7 @@ api.get("/notes", (req, res) => {
 		);
 		// If there are no notes, then send a 404 response to the client
 		if (!notes) {
-			res.status(404).json({ message: "Notes not found" });
+			return res.status(404).json({ message: "Notes not found" });
 		}
 		//otherwise, send the notes to the client after parsing them into JSON
 		res.status(200).json(JSON.parse(notes));
@@ -28,9 +28,36 @@ api.get("/notes", (req, res) => {
 //and then return the new note to the client.
 //You'll need to find a way to give each note a unique id when it's saved (look into npm packages that could do this for you).
 api.post("/notes", (req, res) => {
-	// res; gfgf
-	console.log(req);
-	res.send("noobs");
+	// console.log(req);
+	if (!req.body.title || !req.body.text) {
+		console.log("should have errored");
+		return res.status(400).send({
+			message: "missing title or body text",
+		});
+	}
+
+	try {
+		const notes = JSON.parse(
+			fs.readFileSync(path.resolve(__dirname, "../db/db.json"), "utf8")
+		);
+		const newNote = {
+			id: uuid.v4(),
+			title: req.body.title,
+			text: req.body.text,
+		};
+		notes.push(newNote);
+		fs.writeFileSync(
+			path.resolve(__dirname, "../db/db.json"),
+			JSON.stringify(notes),
+			"utf8"
+		);
+		return res.status(201).json(newNote);
+	} catch (error) {
+		console.log(error);
+		return res.status(500).send({
+			message: "error writing note",
+		});
+	}
 });
 
 // Bonus
