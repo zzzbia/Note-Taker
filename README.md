@@ -9,6 +9,7 @@ Create a Note Taking App! When you have random throughts or idea's, you may stor
 - [Installation](#💾-installation)
 - [Usage](#💡-usage)
 - [Contributing](#👥-contributing)
+- [Demo](#demo)
 - [Questions](#💭-questions)
 - [License](#📚-license)
 
@@ -47,7 +48,8 @@ To contribute to the Note Taker repo, you can:
  4. **Push** to your existing forked project
  5. Finally please submit a **Pull request**
 
-
+## Demo
+[Try out the working App!](https://notetakrz.herokuapp.com/)
 
 
 ## 💭 Questions
