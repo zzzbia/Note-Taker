@@ -10,5 +10,8 @@ htmlRoutes.get("/notes", (req, res) => {
 });
 
 // GET * should return the index.html file.
+htmlRoutes.get("*", (req, res) => {
+	res.status(200).sendFile(path.resolve(__dirname, "../public/index.html"));
+});
 
 module.exports = htmlRoutes;
